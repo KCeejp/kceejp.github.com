@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vim | blog.kcee.jp]]></title>
+  <link href="http://KCeejp.github.io/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://KCeejp.github.io/"/>
+  <updated>2013-06-22T20:50:53+09:00</updated>
+  <id>http://KCeejp.github.io/</id>
+  <author>
+    <name><![CDATA[KCeejp]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Vim keybindings in Xcode using XVim]]></title>
+    <link href="http://KCeejp.github.io/blog/2013/06/22/vim-keybindings-in-xcode-using-xvim/"/>
+    <updated>2013-06-22T10:16:00+09:00</updated>
+    <id>http://KCeejp.github.io/blog/2013/06/22/vim-keybindings-in-xcode-using-xvim</id>
+    <content type="html"><![CDATA[<p>Source: <a href="https://github.com/JugglerShu/XVim">https://github.com/JugglerShu/XVim</a></p>
+
+<p>Source: <a href="http://programming.jugglershu.net/softwares/xvim.html">http://programming.jugglershu.net/softwares/xvim.html</a></p>
+
+<p>Source: <a href="http://viciousapp.com/">http://viciousapp.com/</a></p>
+]]></content>
+  </entry>
+  
+</feed>

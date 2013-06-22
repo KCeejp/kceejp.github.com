@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Objective-C | blog.kcee.jp]]></title>
+  <link href="http://KCeejp.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
+  <link href="http://KCeejp.github.io/"/>
+  <updated>2013-06-22T20:50:53+09:00</updated>
+  <id>http://KCeejp.github.io/</id>
+  <author>
+    <name><![CDATA[KCeejp]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Understanding View hierarchy with recursivedescription]]></title>
+    <link href="http://KCeejp.github.io/blog/2013/06/22/understanding-view-hierarchy-with-recursivedescription/"/>
+    <updated>2013-06-22T11:34:00+09:00</updated>
+    <id>http://KCeejp.github.io/blog/2013/06/22/understanding-view-hierarchy-with-recursivedescription</id>
+    <content type="html"><![CDATA[<h1>UIView is layered</h1>
+
+<p>UIView and many of its subclasses can have complecated hierarchy of views.
+You know the structure of the views you created, and you might think this technique is not useful for you.</p>
+
+<h1>Print out everything</h1>
+
+<p><code>objc show every subview's description using recursiveDescription
+NSLog(@"%@", [view recursiveDescription]);
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Taking screenshots in iOS]]></title>
+    <link href="http://KCeejp.github.io/blog/2013/06/22/taking-screenshots-in-ios/"/>
+    <updated>2013-06-22T09:37:00+09:00</updated>
+    <id>http://KCeejp.github.io/blog/2013/06/22/taking-screenshots-in-ios</id>
+    <content type="html"><![CDATA[<h1>Taking screenshot</h1>
+
+<p>``` objc screenshot methods
+&ndash; (UIImage *)screenshot
+{</p>
+
+<pre><code>// Create a graphics context with the target size
+// On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+// On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+CGSize imageSize = [[UIScreen mainScreen] bounds].size;
+if (NULL != UIGraphicsBeginImageContextWithOptions) {
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, [UIScreen mainScreen].scale);
+}
+else {
+    UIGraphicsBeginImageContext(imageSize);
+}
+
+CGContextRef context = UIGraphicsGetCurrentContext();
+
+// Iterate over every window from back to front
+for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+    if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen]) {
+        // -renderInContext: renders in the coordinate space of the layer,
+        // so we must first apply the layer's geometry to the graphics context
+        CGContextSaveGState(context);
+        // Center the context around the window's anchor point
+        CGContextTranslateCTM(context, [window center].x, [window center].y);
+        // Apply the window's transform about the anchor point
+        CGContextConcatCTM(context, [window transform]);
+        // Offset by the portion of the bounds left of and above the anchor point
+        CGContextTranslateCTM(context,
+                              -[window bounds].size.width * [[window layer] anchorPoint].x,
+                              -[window bounds].size.height * [[window layer] anchorPoint].y);
+
+        // Render the layer hierarchy to the current context
+        [[window layer] renderInContext:context];
+
+        // Restore the context
+        CGContextRestoreGState(context);
+    }
+}
+
+// Retrieve the screenshot image
+UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
+UIGraphicsEndImageContext();
+
+return image;
+</code></pre>
+
+<p>}
+```</p>
+
+<!-- more -->
+
+
+<h2>Problem with this</h2>
+
+<ul>
+<li>This method can cause performance issue, especially on iPhone4 or Retina iPad.</li>
+</ul>
+
+
+<h1>Sources</h1>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/#qa/qa2010/qa1703.html">iOS Developer Library &ndash; Technical Q&amp;A QA1703 &ndash; Screen Capture in UIKit Applications</a></li>
+<li><a href="http://stackoverflow.com/questions/2200736/how-to-take-a-screenshot-programmatically">iphone &ndash; How to take a screenshot programmatically &ndash; Stack Overflow</a></li>
+<li><a href="https://devforums.apple.com/message/149553">https://devforums.apple.com/message/149553</a></li>
+<li><a href="https://devforums.apple.com/thread/61338">https://devforums.apple.com/thread/61338</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
