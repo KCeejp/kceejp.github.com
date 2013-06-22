@@ -12,6 +12,8 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+	{% include custom/ogp_header.html %}
+
 	<link href="{{ site.subscribe_rss }}" rel="alternate" title="{{site.title}}" type="application/atom+xml">
 	<link rel="canonical" href="{{ canonical }}">
 	<link href="{{ root_url }}/favicon.png" rel="shortcut icon">
@@ -20,4 +22,5 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	{% include custom/fancybox_head.html %}
 	{% include custom/head.html %}
+
 </head>
